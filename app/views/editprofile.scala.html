@@ -1,0 +1,27 @@
+@(profile:models.LoginDetails)
+<div>
+    <h1>Profile</h1>
+    <form name = "login"  method ="POST" id="loginform">
+        <div class="form-group">
+            <label for="fname" class="col-2 col-form-label">First Name:</label>
+            <input type="text" class="form-control" name="First Name" value="@profile.getFname" id="fname" required>
+        </div>
+        <div class="form-group">
+            <label for="lname" class="col-2 col-form-label">Last Name:</label>
+            <input type="text" class="form-control" name="Last Name" value="@profile.getLname" placeholder="Enter Last Name" id="lname" required>
+        </div>
+        <div class="form-group">
+            <label for="pno" class="col-2 col-form-label">Phone No:</label>
+            <input type="tel" class="form-control" name="Phone No" value="@profile.getPhone" placeholder="Enter Phone No" id="pno" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="10" required>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-2 col-form-label">Email Id:</label>
+            <input type="email" class="form-control" name="email id" value="@profile.getEmail" placeholder="Enter Email Id" id="email" required><div id="result"></div>
+        </div>
+
+        <input type="button" class="btn btn-default" value="Update Changes" id="reg" onclick="validateForm()">
+
+    </form>
+
+
+</div>

@@ -1,0 +1,144 @@
+<div>
+    <!--<head>
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet"
+              id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    </head>-->
+
+    <style>
+        .attendanceSystem{
+            width:40%;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <title>products html</title>
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-12">
+                <div class="card attendanceSystem mx-auto justify-content-center">
+                    <div class="card-body">
+                        <h4 class="mb-2 mt-1 text-center">Attendance Memo </h4>
+                        <div id="result" class="alert alert-success alert-dismissible fade" style="display:none;"></div>
+                        <form class="form-horizontal" name="products" method="POST" id="rohitform">
+
+                            <div class="form-group">
+                                <label>Enter Name:</label>
+                                <input type="text" class="form-control col-lg" name="name" value="" id="name">
+                            </div>
+
+                            <div class="form-group mb-4">
+                                <label>Enter Emp_id:</label>
+                                <input type="text" class="form-control" name="emp_id" id="emp_id">
+                            </div>
+                            <div class="form-group mt-3">
+                                <input type="button" class="btn btn-primary btn-block" value="Enter" id="Enter"
+                                       onclick="sendRequest()">
+                                <input type="button" class="btn btn-primary btn-block" value="checkIn" id="in"
+                                       style="display:none" onclick="sendCheckIn()">
+                                <input type="button" class="btn btn-primary btn-block" value="checkOut" id="out"
+                                       style="display:none" onclick="sendCheckOut()">
+                            </div>
+
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+<script>
+
+
+function sendRequest(){
+var test = $('#name').val();
+//alert(test);
+    var myData = {
+        name : $('#name').val(),
+        emp_id : $('#emp_id').val()
+    }
+
+    //console.log(myData);
+    //alert('hi');
+    $.ajax({
+        url: "/enter",
+        dataType : "json",
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(myData),
+        success : function(status){
+          //alert("i am very old. my name and age is "+ status);
+
+          if(status==1){
+          $("#in").show();
+          $("#result").addClass('show');
+          $("#result").text("you can check in now");
+          $("#Enter").hide();
+          }
+          else
+          {
+          $("#Enter").hide();
+          $("#out").show();
+          $("#result").addClass('show');
+          $("#result").text("you have already checked In");
+
+
+          }
+        }
+
+    });
+}
+function sendCheckIn(){
+//var test = $('#name').val();
+//alert(test);
+    var myData = {
+        name : $('#name').val(),
+        emp_id : $('#emp_id').val()
+    }//console.log(myData);
+    //alert('hi');
+    $.ajax({
+        url: "/checkIn",
+        dataType : "json",
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(myData),
+        success : function(status){
+        document.getElementById("result").innerHTML=status;
+        $("#out").show();
+        $("#in").hide();
+        }
+        });
+}
+function sendCheckOut(){
+//var test = $('#name').val();
+//alert(test);
+    var myData = {
+        name : $('#name').val(),
+        emp_id : $('#emp_id').val()
+    }//console.log(myData);
+    //alert('hi');
+    $.ajax({
+        url: "/checkOut",
+        dataType : "json",
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(myData),
+        success : function(status){
+        document.getElementById("result").innerHTML=status;
+        $("#out").hide();
+        $("#rohitform").hide();
+        $("#result").removeClass('show');
+        $("#login").show();
+
+        }
+        });
+}
+
+</script>

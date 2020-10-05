@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href='@routes.Assets.versioned("stylesheets/registration.css")' rel="stylesheet" type="text/css"/>
+
+
+</head>
+<body>
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src='@routes.Assets.versioned("images/logo.png")' rel="images" type="image " alt="Nexxo"/>
+            <h3>Welcomes You</h3>
+            <p>This is going to be your best experience</p>
+            <input type="button" value="Login" onclick="window.location.href='/loginpage'"/><br/>
+        </div>
+        <div class="col-md-9 register-right">
+            <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
+
+            </ul>
+            <form id="loginform">
+            <h3 class="register-heading">Enter Your Details</h3>
+            <div class="row register-form">
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="First Name *" id="fname" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Last Name *" id="lname" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password *" id="password" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Confirm Password *" id="confirmpassword" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <div class="maxl">
+                            <label class="radio inline">
+                                <input type="radio" name="gender" value="male" checked>
+                                <span> Male </span>
+                            </label>
+                            <label class="radio inline">
+                                <input type="radio" name="gender" value="female">
+                                <span>Female </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your Email *" id="email" value=""/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" minlength="10" maxlength="10" name="txtEmpPhone" class="form-control"
+                               placeholder="Your Phone *" id="pno" value=""/>
+                    </div>
+
+                    <input type="button" class="btnRegister" value="Register" onclick="myFunction()"/>
+                </div>
+
+                </form>
+            </div>
+
+
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+
+<script>
+/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */
+
+ function myFunction()
+{
+console.log("validate");
+if($("#loginform").valid())
+{
+sendLogin();
+}
+}
+$(document).ready(function() {
+$("#loginform").validate({
+    rules: {
+      fname : {
+        required: true,
+        minlength: 2
+      },
+      lname : {
+        required: true,
+        minlength: 2
+      },
+      pno : {
+        required: true,
+        minlength: 10,
+        maxlength: 10
+      },
+      email : {
+        required: true,
+        email: true
+      },
+      password :{
+       required: true,
+        minlength: 10
+      },
+       confirmpassword: {
+
+                    minlength: 10,
+                    equalTo: "#password"
+                },
+    }
+  });
+});
+
+
+function sendLogin(){
+var test = $('#name').val();
+//alert(test);
+    var myData = {
+        fname : $('#fname').val(),
+        lname : $('#lname').val(),
+        phone : $('#pno').val(),
+        email : $('#email').val(),
+        password : $('#password').val(),
+        role : "user",
+    }
+        var phonen = $('#pno').val();
+        if(parseInt(phonen) <=7000000000 || parseInt(phonen) >=9999999999 || isNaN(phonen)){alert("enter valid phone no");
+        return}
+        $.ajax({
+        url: "/logindb",
+        dataType : "json",
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(myData),
+        success : function(status){
+
+
+         if(status==1){
+         window.location.replace("/loginpage");
+          }
+          else
+          {
+             document.getElementById("result").innerHTML="Email Id already Registered";
+          document.getElementById('password').value = "";
+          document.getElementById('email').value = "";
+          }
+        }
+
+    });
+}
+</script>
+
+</body>
+</html>

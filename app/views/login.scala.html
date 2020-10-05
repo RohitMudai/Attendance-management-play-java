@@ -1,0 +1,136 @@
+<html lang="en" xmlns:visibility="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                <h3>  Welcome</h3>
+            </div>
+        <h2>Registration Page</h2>
+            <div class="col-md-9 register-right">
+    <form name = "login"  method ="POST" id="loginform">
+        <div class="form-group">
+            <label for="fname" class="col-2 col-form-label">First Name:</label>
+        <input type="text" class="form-control" name="First Name" placeholder="Enter First Name" id="fname" required>
+        </div>
+        <div class="form-group">
+            <label for="lname" class="col-2 col-form-label">Last Name:</label>
+        <input type="text" class="form-control" name="Last Name" placeholder="Enter Last Name" id="lname" required>
+        </div>
+        <div class="form-group">
+            <label for="pno" class="col-2 col-form-label">Phone No:</label>
+        <input type="tel" class="form-control" name="Phone No" placeholder="Enter Phone No" id="pno" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" minlength="10" required>
+        </div>
+        <div class="form-group">
+            <label for="email" class="col-2 col-form-label">Email Id:</label>
+        <input type="email" class="form-control" name="email id" placeholder="Enter Email Id" id="email" required><div id="result"></div>
+        </div>
+        <div class="form-group">
+            <label for="password" class="col-2 col-form-label">Password:</label>
+        <input type="password" class="form-control" name="password" placeholder="Enter Password" id="password" minlength="8" required>
+        </div>
+        <input type="button" class="btn btn-default" value="Register" id="reg" onclick="validateForm()">
+
+    </form>
+    </div>
+        </div>
+    </div>
+    <script>
+
+    </script>
+
+
+    <div id="result1"></div>
+</head>
+<body>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+<script>
+/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */
+
+ function validateForm()
+{
+console.log("validate");
+if($("#loginform").valid())
+{
+sendLogin();
+}
+}
+$(document).ready(function() {
+$("#loginform").validate({
+    rules: {
+      fname : {
+        required: true,
+        minlength: 2
+      },
+      lname : {
+        required: true,
+        minlength: 2
+      },
+      pno : {
+        required: true,
+        minlength: 10,
+        maxlength: 10
+      },
+      email : {
+        required: true,
+        email: true
+      },
+      password :{
+       required: true,
+        minlength: 10
+      },
+    }
+  });
+});
+
+
+function sendLogin(){
+var test = $('#name').val();
+    var myData = {
+        fname : $('#fname').val(),
+        lname : $('#lname').val(),
+        phone : $('#pno').val(),
+        email : $('#email').val(),
+        password : $('#password').val(),
+        role : "user",
+    }
+        var phonen = $('#pno').val();
+        if(parseInt(phonen) <=7000000000 || parseInt(phonen) >=9999999999 || isNaN(phonen)){alert("enter valid phone no");
+        return}
+        $.ajax({
+        url: "/logindb",
+        dataType : "json",
+        contentType:"application/json",
+        type: "POST",
+        data: JSON.stringify(myData),
+        success : function(status){
+
+
+         if(status==1){
+         window.location.replace("/loginpage");
+          }
+          else
+          {
+             document.getElementById("result").innerHTML="Email Id already Registered";
+          document.getElementById('password').value = "";
+          document.getElementById('email').value = "";
+          }
+        }
+
+    });
+}
+</script>
+</body>
+</html>

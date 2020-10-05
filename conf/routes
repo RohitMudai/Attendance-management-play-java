@@ -1,0 +1,38 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# An example controller showing a sample home page
+#GET           /                          controllers.HomeController.index
+#GET           /products                  controllers.HomeController.products
+#POST          /productsinfo              controllers.HomeController.productsinfo
+# Map static resources from the /public folder to the /assets URL path
+GET         /assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+#GET           /names                      controllers.HomeController.names
+GET         /attendance                   controllers.HomeController.attendance
+POST        /test123                      controllers.HomeController.jsonhandlertwo
+POST        /enter                        controllers.AtController.atControl
+#POST         /hello                       controllers.HomeController.hello
+POST        /checkIn                      controllers.AtController.checkIn
+POST        /checkOut                     controllers.AtController.checkOut
+POST        /projectmodel                 controllers.HomeController.hello
+GET         /projectmodels                controllers.HomeController.names
+GET         /register                     controllers.HomeController.register
+#POST         /logindb                     controllers.AtController.logindb
+POST        /logindb                      controllers.AtController.registrationForm
+GET         /loginpage                    controllers.HomeController.loginPage
+POST        /loggingin                    controllers.AtController.loggingin
+GET         /attend                       controllers.HomeController.attendance
+GET         /dashboard                    controllers.HomeController.dashboard
+GET         /loggingout                   controllers.HomeController.loggingOut
+GET         /admindashboard               controllers.HomeController.admindashboard
+GET         /logindb                      controllers.AtController.dataTable
+GET         /                             controllers.HomeController.loginPage
+GET         /registerboot                 controllers.HomeController.registerBoot
+GET         /attendreports                controllers.AtController.attendReports
+GET         /err                          controllers.Update.updatePassword
+GET         /profile                      controllers.AtController.profile
+GET         /topgenre                     controllers.AtController.topGenre
+GET         /topproduction                controllers.AtController.topProduction
+POST        /topmoviesofproduction        controllers.AtController.topMoviesOfProduction
+GET         /sass                         controllers.AtController.sass

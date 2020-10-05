@@ -1,0 +1,76 @@
+@(content: String)
+<!--<!DOCTYPE html>-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <h1>@content</h1>
+    <h1>Please Login</h1>
+    @helper.form(action = routes.AtController.loggingin()) {
+    <form name = "login"  method ="POST" id="loginform">
+
+        Enter Email_Id:<br>
+        <input type="text" name="email" id="email"><br><br>
+        Enter Password:<br>
+        <input type="password" name="password" id="password"><br><br>
+        Select Admin/User:<br>
+        <input type = "text" list = "role" name="role">
+        <datalist id = "role">
+            <option value = "admin">
+            <option value = "user">
+        </datalist><br><br>
+        <div class="g-recaptcha" data-sitekey="6LfS9b8UAAAAAIuYvJk04x92pXyRsoEZ4uclLUXR"></div>
+        <input type="submit" value="Login" id="login" ><br><br>
+        <div id="result" ></div>
+    </form>
+    }
+
+</head>
+<body>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/components/core-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/hmac-sha512.js"></script>
+
+
+
+<script>
+/*! jQuery v3.4.1 | (c) JS Foundation and other contributors | jquery.org/license */
+$(document).ready(function() {
+  $("#loginform").validate({
+    rules: {
+      email : {
+        required: true,
+        minlength: 3
+      },
+      password : {
+        required: true,
+        minlength: 4
+      },
+      messages: {
+			email : "This field is required.",
+            password : "wrong password"
+			}
+    }
+  });
+  $('#login').click(function(){
+
+var CryptoJS = require("crypto-js");
+
+// Encrypt
+var ciphertext = CryptoJS.AES.encrypt($('#password').val(), 'secret key 123').toString();
+alert(ciphertext);
+alert("safas");
+$('#password').text(CryptoJS.AES.encrypt(encryptionText, "/"));
+alert(encryptionText);
+//$('#btnDecryption').removeAttr('disabled');
+});
+});
+
+
+
+</script>
+</body>
+</html>

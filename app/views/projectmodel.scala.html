@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>products html</title>
+    <h1>Attendance Memo</h1>
+    <form name = "products"  method ="POST">
+        Enter Name:<br>
+        <input type="text" name="name" value="" id="name">
+        <br><br>
+        Enter Emp_id:<br>
+        <input type="text" name="emp_id" id="emp_id"><br><br>
+        <input type="button" value="check(In/Out)" onclick="sendajax()" >
+    </form>
+
+
+    <div id="result"></div>
+</head>
+<body>
+
+<script type="text/javascript">
+function sendajax(){
+var name   = document.getElementById("name").value;
+var emp_id = document.getElementById("emp_id").value;
+var request = new Object();
+			request.name = name;
+			request.emp_id = emp_id;
+
+			var data = JSON.stringify(request);
+
+			console.log("Request:" + data);
+
+			sendPostRequest("/projectmodel", data, function(response) {
+
+				console.log("Response:" + response.responseText);
+
+
+				//var json = JSON.parse(response.responseText);
+
+           document.getElementById("result").innerHTML=response.responseText;
+
+			});
+}
+////////////////////////////////////////////////////////////////////////////
+		function sendPostRequest(url, data, callback) {
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					callback(this);
+				}
+			};
+			xhttp.open("POST", url, true);
+			xhttp.setRequestHeader("Content-type", "application/json");
+			xhttp.send(data);
+		}
+		////////////////////////////////////////////////////////////////////////////
+</script>
+</body>
+</html>
